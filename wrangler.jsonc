@@ -1,0 +1,11 @@
+{
+  "name": "rasat-demo",
+  "account_id": "0ba31c1dfd6671ea7b6da7a87f374df1",
+  "compatibility_date": "2026-09-03",
+  "workers_dev": true,
+  "routes": [{ "pattern": "demo.rasat.dev", "custom_domain": true }],
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application",
+  },
+}

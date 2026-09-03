@@ -1,0 +1,11 @@
+.demo-banner {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+  color: rgb(var(--color-text-muted));
+  text-decoration: none;
+}
+
+.demo-banner:hover {
+  color: rgb(var(--color-text-heading));
+}

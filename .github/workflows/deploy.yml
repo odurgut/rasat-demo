@@ -1,0 +1,61 @@
+name: deploy
+
+# Same version rule as Hub: a rasat tag vMAJOR.MINOR.PATCH, never main.
+# rasat's release workflow dispatches this; a failed deploy must not fail Hub.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: rasat git tag (vX.Y.Z)
+        required: true
+        type: string
+  repository_dispatch:
+    types: [rasat-release]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: demo-rasat-dev
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: CLOUDFLARE
+    steps:
+      - uses: actions/checkout@v5
+
+      - id: tag
+        run: |
+          TAG="${{ github.event.client_payload.tag || inputs.tag }}"
+          if [[ ! "$TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "need vMAJOR.MINOR.PATCH, got ${TAG:-empty}" >&2
+            exit 1
+          fi
+          echo "value=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v5
+        with:
+          repository: odurgut/rasat
+          ref: ${{ steps.tag.outputs.value }}
+          path: rasat
+          persist-credentials: false
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+      - run: npm run build
+        env:
+          VITE_DEMO_VERSION: ${{ steps.tag.outputs.version }}
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy

@@ -50,6 +50,7 @@ export default defineConfig({
     "import.meta.env.VITE_DEMO_VERSION": JSON.stringify(process.env.VITE_DEMO_VERSION || "demo"),
   },
   resolve: {
+    preserveSymlinks: true,
     alias: {
       "/src": resolve(webRoot, "src"),
     },

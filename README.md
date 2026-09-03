@@ -10,7 +10,7 @@ Needs Node 22. The UI is cloned (or linked) into `./rasat` from `odurgut/rasat` 
 
 ```bash
 npm ci
-npm run fetch    # latest vX.Y.Z, or RASAT_TAG=v0.1.0; sibling ../rasat is linked if present
+npm run fetch    # latest vX.Y.Z, or RASAT_TAG=v0.1.1; sibling ../rasat is linked if present
 npm run dev      # http://localhost:5175/
 ```
 

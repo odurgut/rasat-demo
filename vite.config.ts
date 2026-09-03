@@ -17,7 +17,7 @@ function demoOverlay(): Plugin {
   const chromeFile = `${sep}src${sep}chrome${sep}Chrome.tsx`;
   const mainFile = `${sep}src${sep}main.tsx`;
   const bannerCss = JSON.stringify(resolve(demoSrc, "banner.css"));
-  const cassette = `<a className="demo-banner" href="https://rasat.dev/docs/getting-started" title="synthetic cassette — not ingest">cassette</a>`;
+  const cassette = `<a className="demo-banner" href="https://rasat.dev/docs/getting-started" title="Synthetic shop traces on a loop. Nothing is ingested here.">synthetic shop · not ingest</a>`;
   return {
     name: "rasat-demo-overlay",
     enforce: "pre",

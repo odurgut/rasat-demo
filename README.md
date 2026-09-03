@@ -16,4 +16,4 @@ npm run dev      # http://localhost:5175/
 
 ## Release
 
-Same tags as Docker Hub: `vMAJOR.MINOR.PATCH` on `odurgut/rasat`. This repo’s `deploy` workflow checks out that tag into `./rasat`, builds, and `wrangler deploy`s over `demo.rasat.dev`. Not from `main`.
+Same tags as Docker Hub: `vMAJOR.MINOR.PATCH` on `odurgut/rasat`. Rasat’s release workflow dispatches this repo (`rasat-release`, payload `tag`). `deploy` checks out that tag into `./rasat`, builds, and `wrangler deploy`s over `demo.rasat.dev`. Not from `main`. Manual run: Actions → deploy → the same tag.
